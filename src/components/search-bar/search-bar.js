@@ -42,7 +42,6 @@ const SearchInput = ({
 //     }, WAIT_INTERVAL);
 //   },[value])
     const onInputChange = (event) => {
-        console.log(event.target.value)
         setUserInput(event.target.value)
         setValue(event.target.value)
     }

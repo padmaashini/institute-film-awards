@@ -1,11 +1,10 @@
 import { UserActionTypes } from './user.types';
 
 const INITIAL_STATE = {
-    user_input: null
+    user_input: ''
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
-    console.log(action)
     switch(action.type) {
         case UserActionTypes.SET_USER_INPUT: 
             return {
