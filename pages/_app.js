@@ -1,6 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { Provider } from 'react-redux';
+
 import '../styles/globals.css';
+import { store } from '../src/redux/store';
+
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 
 const theme = createMuiTheme({
   typography: {
@@ -30,9 +35,11 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </Provider>
   )
 }
 

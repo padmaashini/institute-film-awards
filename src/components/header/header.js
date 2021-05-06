@@ -71,7 +71,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     // ...container2,
-    background: '#110e0e',
+    // background: '#110e0e',
+    // backgroundImage: 'url(black-leaf-background.jpg)',
+    // backgroundColor: 'black',
     // width: '100%',
     // width: '80%',
     ...theme.typography.normal
@@ -85,7 +87,8 @@ const useStyles = makeStyles((theme) => ({
   },
   text:{
     ...theme.typography.normal
-  }
+  },
+
 }));
 
 export default function ButtonAppBar() {
@@ -93,7 +96,7 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar style={{background: '#110e0e', color: '#dfca4e', width: '100%'}} position="static">
+      <AppBar style={{background: 'transparent', color: '#dfca4e', width: '100%', boxShadow: 'none !important'}} position="static">
         <Toolbar className={classes.container2}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MovieIcon />

@@ -2,6 +2,8 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import SearchInput from '../search-bar/search-bar';
+
 const conatinerFluid = {
     paddingRight: "15px",
     paddingLeft: "15px",
@@ -31,27 +33,68 @@ const conatinerFluid = {
 
 const useStyles = makeStyles((theme) => ({
     ...container2,
+    container2: {
+        color: '#dfca4e',
+        textAlign: 'center',
+        paddingBottom: '100px'
+    },
     container: {
         width: '100%',
-        background: '#110e0e',
+        // background: '#110e0e',
+        background: 'transparent',
         color: '#dfca4e',
-        padding: '50px'
+        padding: '50px',
+        ...theme.typography.normal,
+        textAlign: 'center',
+        paddingBottom: '100px !important'
     },
     title: {
         ...theme.typography.heading,
-        textAlign: 'center',
-        margin: '0px'
-    }
+        margin: '20px 20px 0px 20px'
+        // textAlign: 'center',
+        // marginTop: 
+        // padding: '0px'
+    },
+    imageContainer: {
+        width: '100%',
+        height: '600px',
+        overflow: 'hidden'
+      },
+      backgroundImage:{
+        width: '100%',
+        // opacity: '0.8'
+        // height: '500px'
+      },
+      heading: {
+          border: 'solid',
+          padding: '0px !important',
+          margin: '0px !important',
+          display: 'inline-block',
+          background: 'rgba(41, 40, 38, 0.5)',
+        //   opacity: '0.5'
+      },
+      searchBar: {
+          width: '50%'
+      }
 }))
 
 const SearchBarContainer = () => {
     const classes = useStyles(); 
 
     return (
-        <div className={classes.container}>
-            <p className={classes.title}>The Shoppies</p>
+        <div className={classes.container2}>
+            {/* <div className={classes.imageContainer}>
+                    <img src='/black-leaf-background.jpg' className={classes.backgroundImage} />
+            </div> */}
+            <div className={classes.container}>
+            <div className={classes.heading}>
+                <p className={classes.title}>The Shoppies</p>
+                <p style={{marginTop: '0px'}}>Movie Awards</p>
+            </div>
         </div>
-    )
+        <SearchInput className={classes.searchBar}/>
+        </div>
+    )  
 }
 
 export default SearchBarContainer; 
