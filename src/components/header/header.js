@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import styles from './styles'
 import MovieIcon from '@material-ui/icons/Movie';
+import Router from 'next/router';
 // const conatinerFluid = {
 //   paddingRight: "15px",
 //   paddingLeft: "15px",
@@ -98,14 +99,14 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar style={{background: 'transparent', color: '#dfca4e', width: '100%', boxShadow: 'none !important'}} position="static">
         <Toolbar className={classes.container2}>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => Router.push('/')}>
             <MovieIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             SHOPPIES: MOVIE AWARDS
           </Typography>
-          <Button color="inherit" className={classes.text}>About</Button>
-          <Button color="inherit" className={classes.text}>Nominations</Button>
+          <Button color="inherit" className={classes.text} onClick={()=>Router.push('/')}>About</Button>
+          <Button color="inherit" className={classes.text} onClick={()=>Router.push('/nominations')}>Nominations</Button>
         </Toolbar>
       </AppBar>
     </div>

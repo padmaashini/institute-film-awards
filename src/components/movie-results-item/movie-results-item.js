@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux'; 
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+
+import { addNomineeToState, removeNomineeFromState } from '../../redux/nominees/nominees.actions';
+import { addNominee, removeNominee } from '../../redux/nominees/nominees.utils';
+import { selectNominees } from '../../redux/nominees/nominees.selectors';
+import { createStructuredSelector } from 'reselect';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,13 +49,33 @@ const useStyles = makeStyles((theme) => ({
     //    color: '#C48813',
        color: '#D7AC39',
        fontSize: '22px'
+   },
+   disabledButton: {
+       backgroundColor: '#666c91 !important',
+       color: 'black !important'
+   },
+   maxLimitReached: {
+       fontSize: '12px',
+       maxWidth: '150px',
+       overflowWrap: 'break-word',
+       textAlign: 'center',
+       marginLeft:'auto',
+       marginRight: 'auto'
    }
 }))
 
-const MovieResultItem = ({ movieInfo }) => {
+const MovieResultItem = ({ movieInfo, addNominee, removeNominee, nomineesList }) => {
     const { Poster, Title, Type, Year } = movieInfo; 
     const classes = useStyles(); 
     const [details, setDetails] = useState(null);
+
+    console.log(nomineesList)
+
+    const movieAdded = Boolean(nomineesList.find(nominee => nominee.imdbID === movieInfo.imdbID))
+    console.log(movieAdded)
+    const maxLimitReached = nomineesList.length >= 5
+    // console.log
+    // const movieAdded = false
 
     useEffect(() => {
         // http://www.omdbapi.com/?apikey=8418cead&i=tt0418279
@@ -61,7 +87,11 @@ const MovieResultItem = ({ movieInfo }) => {
     }, [movieInfo])
 
     const onNominate = () => {
+        addNominee(movieInfo)
+    }
 
+    const removeNomination = () => {
+        removeNominee(movieInfo)
     }
 
     // const colours = ['#D40011', '#00007C', '#27A102' ] 
@@ -70,6 +100,7 @@ const MovieResultItem = ({ movieInfo }) => {
 
     return (
         <div>
+            {console.log(nomineesList)}
             <Grid container className={classes.container}>
                 <Grid item xs={2}>
                     <img className={classes.poster} src={Poster} />
@@ -105,17 +136,34 @@ const MovieResultItem = ({ movieInfo }) => {
                 <Grid item xs={1}>
                     {Year}
                 </Grid>
-                <Grid item xs={2}>
-                    <Button variant="contained" color="primary" onClick={onNominate}>
+                <Grid item xs={2} style={{textAlign: 'center'}}>
+                    <Button variant="contained" color="primary" onClick={onNominate} disabled={movieAdded || maxLimitReached} classes={{disabled: classes.disabledButton}}>
                        Nominate
                     </Button>
-                    {/* <Button variant="contained" color="secondary">
-                       Remove
-                    </Button> */}
+                    {
+                        maxLimitReached && !movieAdded ? <p className={classes.maxLimitReached}>Max Number of Nominees Reached</p> : null
+                    }
+                    <br/>
+                    {
+                        movieAdded && (
+                            <Button variant="contained" color="secondary" onClick={removeNomination} style={{marginTop: '20px', width: '106px', backgroundColor: '#c2104f'}}>
+                                Remove
+                            </Button>
+                        )
+                    }
                 </Grid>
             </Grid>
         </div>
     )
 }
 
-export default MovieResultItem; 
+const mapStateToProps = ({ nominees }) => createStructuredSelector({
+    nomineesList: selectNominees
+});
+
+const mapDispatchToProps = dispatch => ({
+    addNominee: nominee => dispatch(addNomineeToState(nominee)),
+    removeNominee: nominee => dispatch(removeNomineeFromState(nominee))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieResultItem); 

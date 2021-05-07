@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
-const selectUserReducer = state => state; 
+const selectUserReducer = state => state.user; 
 
 export const selectInput = createSelector(
     [selectUserReducer],
-    (state) => state.user_input
+    (user) => user.user_input
 )

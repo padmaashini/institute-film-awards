@@ -6,6 +6,8 @@ import { store } from '../src/redux/store';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+import Header from '../src/components/header/header';
+
 
 const theme = createMuiTheme({
   typography: {

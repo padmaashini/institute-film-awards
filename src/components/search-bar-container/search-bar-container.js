@@ -36,17 +36,18 @@ const useStyles = makeStyles((theme) => ({
     container2: {
         color: '#dfca4e',
         textAlign: 'center',
-        paddingBottom: '100px'
+        paddingBottom: '30px'
     },
     container: {
         width: '100%',
         // background: '#110e0e',
         background: 'transparent',
         color: '#dfca4e',
-        padding: '50px',
+        padding: '10px 50px 50px 50px',
+        // padding: '50px',
         ...theme.typography.normal,
         textAlign: 'center',
-        paddingBottom: '100px !important'
+        // paddingBottom: '100px !important'
     },
     title: {
         ...theme.typography.heading,

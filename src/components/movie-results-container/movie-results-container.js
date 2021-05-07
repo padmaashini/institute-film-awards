@@ -10,7 +10,7 @@ import MovieResultItem from '../movie-results-item/movie-results-item';
 const useStyles = makeStyles((theme) => ({
    container: {
        ...theme.typography.normal, 
-       padding: '60px', 
+       padding: '10px 60px', 
        color: '#dfca4e'
    }
 }))

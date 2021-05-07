@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
   headSection: {
     background: 'url(black-leaf-background.jpg)',
+    // background: 'url(ocean-background.jpg)',
     backgroundSize: '100%'
   }
 }))
