@@ -8,51 +8,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { setUserInput } from '../../redux/user/user.actions';
 
-const useStyles = makeStyles(theme => ({
-  icon: {
-    margin:'5px', 
-    marginRight: '10px'
-  },
-}))
+import styles from './styles';
 
-const SearchInput = ({
-    setUserInput
-}) => {
+const useStyles = makeStyles(styles);
 
-    const [value, setValue] = useState('');
-//   const inputRef = React.createRef();
-//   const { t } = useTranslation('common');
-//   let firstUpdate = useRef(true);
+const SearchInput = ({ setUserInput }) => {
+  const [value, setValue] = useState('');
+  const classes = useStyles(); 
 
-//   const WAIT_INTERVAL = 400;
-//   let timerID;
-
-//   React.useEffect(() => {
-//     if (onMountFocus && inputRef && inputRef.current) inputRef.current.focus();
-//   }, []);
-
-//   useLayoutEffect(() => {
-//     if(firstUpdate.current){
-//       firstUpdate.current = false; 
-//       return; 
-//     }
-//     clearTimeout(timerID);
-//     timerID = setTimeout(() => {
-//       onSearchInputChange(value);
-//     }, WAIT_INTERVAL);
-//   },[value])
-    const onInputChange = (event) => {
-        setUserInput(event.target.value)
-        setValue(event.target.value)
-    }
-//   const searchInputChangeHandler = async (event) => {
-//     if (inputRef.current && inputRef.current.value !== null) {
-//       setValue(inputRef.current.value)
-//     }    
-//   };
+  const onInputChange = (event) => {
+    setUserInput(event.target.value);
+    setValue(event.target.value);
+  }
 
   return (
-      <FormControl style={{width: '800px'}}>
+      <FormControl className={classes.formControl}>
           <InputBase
             id='search-input'
             placeholder={'Search Movies'}
@@ -60,8 +30,7 @@ const SearchInput = ({
             fullWidth={true}
             value={value}
             onChange={onInputChange}
-            // autocomplete="off"
-            style={{color: 'black', fontWeight: '500', background: 'rgba(255, 255, 255, 0.8)', height: '40px', borderRadius: '15px', padding: '10px'}}
+            className={classes.searchBar}
           />
       </FormControl>
   );

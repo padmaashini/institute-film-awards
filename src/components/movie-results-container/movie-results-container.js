@@ -17,16 +17,9 @@ const useStyles = makeStyles((theme) => ({
 
 const MovieResultsContainer = ({ userInput }) => {
     const classes = useStyles();
-
     const [movieResults, setMovieResults] = useState([]);
 
     useEffect(() => {
-        // if(userInput || !userInput) {
-        //   
-        //     fetch(`http://www.omdbapi.com/?apikey=8418cead&type=movie&s=${userInput}`)
-        //         .then(response => response.json())
-        //         .then(data => setMovieResults(data.Search)); 
-        // }
         fetch(`http://www.omdbapi.com/?apikey=8418cead&type=movie&s=${userInput}`)
                 .then(response => response.json())
                 .then(data => setMovieResults(data.Search)); 
@@ -34,19 +27,7 @@ const MovieResultsContainer = ({ userInput }) => {
 
     return (
         <div className={classes.container}>
-            {console.log(movieResults)}
-            {
-                movieResults ? movieResults.map((movie, index)=> <MovieResultItem key={index} movieInfo={movie} />) : null
-            }
-            {/* <svg xmlns="http://www.w3.org/2000/svg" width="80%" height="auto" viewBox="0 0 935 266">
-                <defs>
-                    <linearGradient id="linear-gradient" y1="-0.158" x2="1.015" y2="1.051" gradientUnits="objectBoundingBox">
-                    <stop offset="0" stop-color="#151513"/>
-                    <stop offset="1" stop-color="#0d0c11"/>
-                    </linearGradient>
-                </defs>
-                <rect id="Rectangle_3" data-name="Rectangle 3" width="935" height="266" fill="url(#linear-gradient)"/>
-            </svg> */}
+            { movieResults && movieResults.map((movie, index)=> <MovieResultItem key={index} movieInfo={movie} />) }
         </div>
     )
 }

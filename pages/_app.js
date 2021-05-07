@@ -6,9 +6,6 @@ import { store } from '../src/redux/store';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import Header from '../src/components/header/header';
-
-
 const theme = createMuiTheme({
   typography: {
     heading: {
@@ -25,7 +22,8 @@ const theme = createMuiTheme({
       ].join(','),
       fontSize: '20px'
     }
-  },});
+  }
+});
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {

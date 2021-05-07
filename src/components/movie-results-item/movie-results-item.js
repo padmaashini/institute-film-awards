@@ -5,84 +5,36 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+import styles from './styles';
+
 import { addNomineeToState, removeNomineeFromState } from '../../redux/nominees/nominees.actions';
 import { addNominee, removeNominee } from '../../redux/nominees/nominees.utils';
 import { selectNominees } from '../../redux/nominees/nominees.selectors';
 import { createStructuredSelector } from 'reselect';
 
 
-const useStyles = makeStyles((theme) => ({
-   container: {
-    //    ...theme.typography.normal, 
-    //    padding: '60px !important', 
-       color: '#dfca4e',
-       width: '80%',
-       marginRight: 'auto',
-       marginLeft: 'auto',
-      textAlign: 'center',
-       "@media (max-width: 780px)": {
-         width: '100% !important'
-       },
-    //    border: 'solid',
-       borderRadius: '20px',
-       marginTop: '10px',
-       padding: '20px 0px',
-    //    background: '#211f18'
-    //    background: '#0D0C11'
-    // background: '#151513'
-    background: 'linear-gradient(94.97deg, #151513 -0.94%, #0D0C11 101.96%)'
-   },
-   poster: {
-        height: '200px',
-        maxWidth: '150px',
-   },
-   plot: {
-       fontSize: '14px !important',
-       color: '#dae0db'
-   },
-   genre: {
-    fontSize: '14px !important',
-    color: '#2B6ABC'
-    },
-   text: {
-       textAlign: 'left !important',
-    //    color: '#C48813',
-       color: '#D7AC39',
-       fontSize: '22px'
-   },
-   disabledButton: {
-       backgroundColor: '#666c91 !important',
-       color: 'black !important'
-   },
-   maxLimitReached: {
-       fontSize: '12px',
-       maxWidth: '150px',
-       overflowWrap: 'break-word',
-       textAlign: 'center',
-       marginLeft:'auto',
-       marginRight: 'auto'
-   }
-}))
+const useStyles = makeStyles(styles);
 
 const MovieResultItem = ({ movieInfo, addNominee, removeNominee, nomineesList }) => {
-    const { Poster, Title, Type, Year } = movieInfo; 
+    const { Poster, Title, Year } = movieInfo; 
     const classes = useStyles(); 
     const [details, setDetails] = useState(null);
 
-    console.log(nomineesList)
+    const movieAdded = Boolean(nomineesList.find(nominee => nominee.imdbID === movieInfo.imdbID));
+    const maxLimitReached = nomineesList.length >= 5;
 
-    const movieAdded = Boolean(nomineesList.find(nominee => nominee.imdbID === movieInfo.imdbID))
-    console.log(movieAdded)
-    const maxLimitReached = nomineesList.length >= 5
-    // console.log
-    // const movieAdded = false
+    const colours = {
+        "Internet Movie Database" : { color: '#00007C'},
+        "Rotten Tomatoes": { color: '#930001'},
+        "Metacritic": { color: '#258707' }
+    }
 
     useEffect(() => {
-        // http://www.omdbapi.com/?apikey=8418cead&i=tt0418279
-        if(movieInfo && movieInfo.imdbID) {
+        if(movieInfo && movieInfo.imdbID && movieInfo.imdb !== 'N/A') {
             fetch(`http://www.omdbapi.com/?apikey=8418cead&i=${movieInfo.imdbID}`)
                 .then(response => response.json())
-                .then(data => setDetails(data)); 
+                .then(data => setDetails(data))
+                .catch(err => console.error(err)); 
         }
     }, [movieInfo])
 
@@ -94,13 +46,8 @@ const MovieResultItem = ({ movieInfo, addNominee, removeNominee, nomineesList })
         removeNominee(movieInfo)
     }
 
-    // const colours = ['#D40011', '#00007C', '#27A102' ] 
-    const colours = ['#00007C', '#930001', '#258707']
-    // change above to object based on rating source
-
     return (
         <div>
-            {console.log(nomineesList)}
             <Grid container className={classes.container}>
                 <Grid item xs={2}>
                     <img className={classes.poster} src={Poster} />
@@ -109,26 +56,21 @@ const MovieResultItem = ({ movieInfo, addNominee, removeNominee, nomineesList })
                     {Title}
                     <br/>
                     {details && details.Genre ? <p className={classes.genre}>{details.Genre}</p> : ""}
-                    {/* <br/> */}
                     {details && details.Plot && <p className={classes.plot}>{details? details.Plot : ''}</p>}
                     {
                         details && details.Ratings?
-                        <div style={{display: 'flex', gap: '20px'}}>
+                        <div className={classes.ratingsContainer}>
                             {details.Ratings.map((rating, index) => {
-                                const color = colours[index]; 
+                                const color = colours[rating.Source].color; 
                                 return(
-                                    <div style={{display: 'block', marginRight: '15px !important', color: 'white'}}>
-                                        <div key={index} 
-                                            style={{height: '50px', width: '50px', lineHeight: '50px', borderRadius: '50%', color: 'white !important',
-                                                fontWeight: '500 !important',
-                                                backgroundColor: color, fontSize: '14px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center'}}>
+                                    <div key={index} className={classes.individualRating}>
+                                        <div key={index} className={classes.ratingIcon} style={{backgroundColor: color}}>
                                             {rating.Value}
                                         </div>
-                                        <p style={{fontSize: '14px', maxWidth: '113px', overflowWrap: 'break-word', textAlign: 'center', color: '#F3AA4E'}}>{rating.Source}</p>
+                                        <p className={classes.ratingSource}>{rating.Source}</p>
                                     </div>
                                 )
-                            }
-                            )}
+                            })}
                         </div>
                         : null
                     }
@@ -140,13 +82,11 @@ const MovieResultItem = ({ movieInfo, addNominee, removeNominee, nomineesList })
                     <Button variant="contained" color="primary" onClick={onNominate} disabled={movieAdded || maxLimitReached} classes={{disabled: classes.disabledButton}}>
                        Nominate
                     </Button>
-                    {
-                        maxLimitReached && !movieAdded ? <p className={classes.maxLimitReached}>Max Number of Nominees Reached</p> : null
-                    }
+                    { maxLimitReached && !movieAdded ? <p className={classes.maxLimitReached}>Max Number of Nominees Reached</p> : null }
                     <br/>
                     {
                         movieAdded && (
-                            <Button variant="contained" color="secondary" onClick={removeNomination} style={{marginTop: '20px', width: '106px', backgroundColor: '#c2104f'}}>
+                            <Button variant="contained" color="secondary" onClick={removeNomination} className={classes.removeButton}>
                                 Remove
                             </Button>
                         )
@@ -157,7 +97,7 @@ const MovieResultItem = ({ movieInfo, addNominee, removeNominee, nomineesList })
     )
 }
 
-const mapStateToProps = ({ nominees }) => createStructuredSelector({
+const mapStateToProps = createStructuredSelector({
     nomineesList: selectNominees
 });
 
