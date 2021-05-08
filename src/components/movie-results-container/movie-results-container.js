@@ -21,7 +21,7 @@ const MovieResultsContainer = ({ page, userInput, nomineesList, emptyContainerCo
 
     useEffect(() => {
         if(page === 'main') {
-            fetch(`http://www.omdbapi.com/?apikey=8418cead&type=movie&s=${userInput}`)
+            fetch(`https://www.omdbapi.com/?apikey=8418cead&type=movie&s=${userInput}`)
                 .then(response => response.json())
                 .then(data => setMovieResults(data.Search)); 
         }

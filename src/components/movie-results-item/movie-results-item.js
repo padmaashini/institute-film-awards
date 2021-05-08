@@ -30,7 +30,7 @@ const MovieResultItem = ({ movieInfo, addNominee, removeNominee, nomineesList })
 
     useEffect(() => {
         if(movieInfo && movieInfo.imdbID && movieInfo.imdb !== 'N/A') {
-            fetch(`http://www.omdbapi.com/?apikey=8418cead&i=${movieInfo.imdbID}`)
+            fetch(`https://www.omdbapi.com/?apikey=8418cead&i=${movieInfo.imdbID}`)
                 .then(response => response.json())
                 .then(data => setDetails(data))
                 .catch(err => console.error(err)); 
