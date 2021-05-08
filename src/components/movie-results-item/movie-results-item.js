@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'; 
+import { createStructuredSelector } from 'reselect';
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,8 +11,6 @@ import styles from './styles';
 import { addNomineeToState, removeNomineeFromState } from '../../redux/nominees/nominees.actions';
 import { addNominee, removeNominee } from '../../redux/nominees/nominees.utils';
 import { selectNominees } from '../../redux/nominees/nominees.selectors';
-import { createStructuredSelector } from 'reselect';
-
 
 const useStyles = makeStyles(styles);
 

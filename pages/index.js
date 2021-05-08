@@ -27,7 +27,7 @@ export default function Home() {
         subText='Movie Awards'
         searchBar
       />
-      <MovieResultsContainer />
+      <MovieResultsContainer page={'main'}/>
     </div>
   )
 }
