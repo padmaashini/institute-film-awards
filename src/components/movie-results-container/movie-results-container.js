@@ -9,15 +9,11 @@ import { selectNominees } from '../../redux/nominees/nominees.selectors';
 import MovieResultItem from '../movie-results-item/movie-results-item';
 import SnackBarComponent  from '../snackbar/snackbar';
 
-const useStyles = makeStyles((theme) => ({
-   container: {
-       ...theme.typography.normal, 
-       padding: '10px 60px', 
-       color: '#dfca4e'
-   }
-}))
+import styles from './styles';
 
-const MovieResultsContainer = ({ page, userInput, nomineesList }) => {
+const useStyles = makeStyles(styles); 
+
+const MovieResultsContainer = ({ page, userInput, nomineesList, emptyContainerContent }) => {
     const classes = useStyles();
     const [movieResults, setMovieResults] = useState([]);
 
@@ -34,12 +30,23 @@ const MovieResultsContainer = ({ page, userInput, nomineesList }) => {
         }
     }, [userInput, nomineesList])
 
-    return (
-        <div className={classes.container}>
-            { movieResults && movieResults.map((movie, index)=> <MovieResultItem key={index} movieInfo={movie} />) }
-            {movieResults && maxLimitReached && page === 'main' && <SnackBarComponent />}
-        </div>
-    )
+    if(movieResults && movieResults.length > 0) {
+        return (
+            <div className={classes.container}>
+                { movieResults.map((movie, index)=> <MovieResultItem key={index} movieInfo={movie} />) }
+                { maxLimitReached && page === 'main' ? <SnackBarComponent /> : null}
+            </div>  
+        )
+    }
+    else {
+        return (
+            <>
+                <div className={classes.emptyContainer}>
+                    {emptyContainerContent}
+                </div>
+            </>
+        )
+    }
 }
 
 const mapStateToProps = createStructuredSelector({

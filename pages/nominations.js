@@ -9,6 +9,9 @@ import MovieResultsContainer from '../src/components/movie-results-container/mov
 const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: 'black'
+  },
+  link: {
+    textDecoration: 'underline'
   }
 }))
 
@@ -23,7 +26,10 @@ const Nominations = () => {
               backgroundImage='ocean-background.jpg'
               title='Nominations'
             />
-            <MovieResultsContainer page={'nominations'}/>
+            <MovieResultsContainer 
+              page={'nominations'}
+              emptyContainerContent={<p>You currently do not have any nominees, please visit the <a href='/' className={classes.link}>HOMEPAGE</a> to browse and nominate movies</p>}
+            />
         </div>
     )
 }

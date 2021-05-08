@@ -27,7 +27,10 @@ export default function Home() {
         subText='Movie Awards'
         searchBar
       />
-      <MovieResultsContainer page={'main'}/>
+      <MovieResultsContainer 
+        page={'main'}
+        emptyContainerContent={<p>Browse and find movies to nominate using the search bar above</p>}
+      />
     </div>
   )
 }

@@ -23,10 +23,9 @@ export default function ButtonAppBar() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => Router.push('/')}>
             <MovieIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title} onClick={() => Router.push('/')}>
             SHOPPIES: MOVIE AWARDS
           </Typography>
-          <Button color="inherit" className={classes.text} onClick={()=>Router.push('/')}>About</Button>
           <Button color="inherit" className={classes.text} onClick={()=>Router.push('/nominations')}>Nominations</Button>
         </Toolbar>
       </AppBar>

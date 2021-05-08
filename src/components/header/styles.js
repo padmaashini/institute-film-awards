@@ -17,7 +17,10 @@ const styles = (theme) => ({
   },
   title: {
     flexGrow: 1,
-    ...theme.typography.normal
+    ...theme.typography.normal,
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   text:{
     ...theme.typography.normal
