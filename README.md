@@ -16,3 +16,6 @@ These were the basic technical requirements from the challenge:
 4. Movies in search results can be added and removed from the nomination list.
 5. If a search result has already been nominated, disable its nominate button.
 6. Display a banner when the user has 5 nominations.
+
+
+The images used in this project are from Unsplash (https://unsplash.com/) and are freely-usable. 
