@@ -1,34 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Shopify Frontend Developer Intern Challenge
 
-## Getting Started
+This is my submission to the Shopify Frontend Developer Intern Challenge. 
 
-First, run the development server:
+It is deployed using Heroku and can be found live here: https://shopify-shoppies-movie-awards.herokuapp.com/
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+The challenge was to create a webpage where users can search for movies and nominate them for "The Shoppies - Movie Awards," using the OMDB API (https://www.omdbapi.com/). Users can only nominate a maximum of 5 movies, and can add and remove movies from the search list. They can also view their nominations in the /nominations page, where they can also remove nominations. If the user navigates to the /nominations page and returns to the search results, the search results will still be there, but will reset on hard page refresh. The nominations, however, are persisted using Redux persist in localStorage so that they are even available on hard page refresh. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This application was build using Next.js (React framework), with libraries such as Material UI, Redux Persist, and Reselect. 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+These were the basic technical requirements from the challenge: 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Search results should come from OMDB's API (free API key: http://www.omdbapi.com/apikey.aspx).
+2. Each search result should list at least its title, year of release and a button to nominate that film.
+3. Updates to the search terms should update the result list
+4. Movies in search results can be added and removed from the nomination list.
+5. If a search result has already been nominated, disable its nominate button.
+6. Display a banner when the user has 5 nominations.
