@@ -16,15 +16,15 @@ export default function Home() {
   return (
     <div className={classes.container}>
       <Head>
-        <title>Shopify - Shoppies: Movie Awards</title>
+        <title>The Academy: Film Awards</title>
         <meta name="description" content="Movie Award Nominations" />
         <link rel="icon" href="/movie-favicon.png" />
         <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet" />
       </Head>
       <HeadingContainer 
         backgroundImage='black-leaf-background.jpg' 
-        title='The Shoppies'
-        subText='Movie Awards'
+        title='The Academy'
+        subText='Film Awards'
         searchBar
       />
       <MovieResultsContainer 
