@@ -24,7 +24,7 @@ export default function ButtonAppBar() {
             <MovieIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title} onClick={() => Router.push('/')}>
-            THE ACADEMY
+            THE INSTITUTE
           </Typography>
           <Button color="inherit" className={classes.text} onClick={()=>Router.push('/nominations')}>Nominations</Button>
         </Toolbar>
